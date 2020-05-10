@@ -3,6 +3,22 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+def renameAPK(variant, defaultConfig) {
+    variant.outputs.each { output ->
+
+        def versionName = defaultConfig.versionName
+        def productFlavor = variant.variantData.variantConfiguration.productFlavors.name;
+        def suffix = ""
+        if(variant.variantData.variantConfiguration.buildType.name== "debug") {
+            suffix = "_DEBUG"
+        }
+        def fileName = applicationName + "_" + versionName + "_" + productFlavor + suffix +".apk"
+        fileName = fileName.replace("[", "")
+        fileName = fileName.replace("]", "")
+        output.outputFileName = fileName
+    }
+}
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -30,6 +46,9 @@ android {
         versionName "1.0"
         signingConfig signingConfigs.release
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        applicationVariants.all { variant ->
+            renameAPK(variant, defaultConfig)
+        }
     }
 
     buildTypes {
@@ -45,6 +64,15 @@ android {
             shrinkResources true
             useProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    // Specifies one flavor dimension.
+    flavorDimensions "endpoint"
+    productFlavors {
+        dev {
+            versionCode versionCode
+            versionName versionName
         }
     }
 
