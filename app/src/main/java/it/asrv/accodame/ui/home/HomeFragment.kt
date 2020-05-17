@@ -32,11 +32,11 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        /*val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
         vHomeSearch.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
         vHomeSearch.isIconifiedByDefault = false
         vHomeSearch.isSubmitButtonEnabled = true
-        vHomeSearch.isQueryRefinementEnabled = true
+        vHomeSearch.isQueryRefinementEnabled = true*/
 
         vHomePager.adapter = HomePagerAdapter(this)
 
