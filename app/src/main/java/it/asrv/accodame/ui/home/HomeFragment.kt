@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import it.asrv.accodame.R
+import it.asrv.accodame.ui.home.map.MapFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
@@ -39,6 +40,8 @@ class HomeFragment : Fragment() {
         vHomeSearch.isQueryRefinementEnabled = true*/
 
         vHomePager.adapter = HomePagerAdapter(this)
+        //Disable swipe
+        vHomePager.isUserInputEnabled = false
 
         TabLayoutMediator(vHomePagerTabs, vHomePager) { tab, position ->
             var title = ""
@@ -55,7 +58,11 @@ class HomeFragment : Fragment() {
         override fun getItemCount(): Int = 2
 
         override fun createFragment(position: Int): Fragment {
-            return Fragment()
+            var fragment : Fragment = Fragment()
+            when(position) {
+                0 -> fragment = MapFragment()
+            }
+            return fragment
         }
     }
 

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Accoda.me</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -9,4 +9,8 @@
     <string name="search_hint">Cerca un locale</string>
     <string name="home_tab_map">Mappa</string>
     <string name="home_tab_list">Lista</string>
+    <string name="alert_location_title">Gentile utente,</string>
+    <string name="alert_location_message">Se non concedi il permesso alla geolocalizzazione né inserisci manualmente una città, non è possibile utilizzare l\'applicazione</string>
+    <string name="alert_location_btn_select_city">Seleziona una città</string>
+    <string name="alert_location_btn_activate_geolocal">Attiva la localizzazione</string>
 </resources>
