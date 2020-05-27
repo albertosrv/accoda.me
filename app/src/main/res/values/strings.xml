@@ -1,4 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="google_api_key">AIzaSyDzPepP2jiddHmLOqNCsYFZIdk4WhBtwAk</string>
+
     <string name="app_name">Accoda.me</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -10,7 +13,8 @@
     <string name="home_tab_map">Mappa</string>
     <string name="home_tab_list">Lista</string>
     <string name="alert_location_title">Gentile utente,</string>
-    <string name="alert_location_message">Se non concedi il permesso alla geolocalizzazione né inserisci manualmente una città, non è possibile utilizzare l\'applicazione</string>
-    <string name="alert_location_btn_select_city">Seleziona una città</string>
-    <string name="alert_location_btn_activate_geolocal">Attiva la localizzazione</string>
+    <string name="alert_location_message">Se non si concedono i permessi alla geolocalizzazione o non si inserisce una città non è possibile effettuare la visualizzazione dei locali</string>
+    <string name="alert_location_btn_select_city">Inserisci città</string>
+    <string name="alert_location_btn_activate_geolocal">Concedi il permesso</string>
+    <string name="map_search_hint">Inserisci la città</string>
 </resources>
