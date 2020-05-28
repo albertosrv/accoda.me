@@ -3,7 +3,6 @@ package it.asrv.accodame.ui
 import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import it.asrv.accodame.R
 
 open class BaseFragment : Fragment() {
 

@@ -9,22 +9,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import it.asrv.accodame.MainActivity.Companion.TAG
 import it.asrv.accodame.R
 import it.asrv.accodame.ui.BaseFragment
 import it.asrv.accodame.utils.DLog
-import java.util.*
 
 
 class MapFragment : BaseFragment(), OnMapReadyCallback {
@@ -47,33 +40,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
         val supportMapFragment = childFragmentManager.findFragmentById(R.id.fMap)
         (supportMapFragment as SupportMapFragment).getMapAsync(this)
-
-        val autocompleteFragment =
-            childFragmentManager.findFragmentById(R.id.fAutocomplete) as AutocompleteSupportFragment
-
-        val searchIcon: ImageView =
-            (autocompleteFragment.getView() as LinearLayout).getChildAt(0) as ImageView
-
-        // Set the desired icon
-        searchIcon.setImageDrawable(resources.getDrawable(R.drawable.ic_location_on_black_24dp, null))
-
-        autocompleteFragment.setCountry(Locale.ITALY.country)
-        autocompleteFragment.setHint(getString(R.string.map_search_hint))
-        // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME))
-
-        // Set up a PlaceSelectionListener to handle the response.
-        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
-            override fun onPlaceSelected(place: Place) {
-                // TODO: Get info about the selected place.
-                DLog.i(TAG, "Place: " + place.name + ", " + place.id)
-            }
-
-            override fun onError(status: Status) {
-                // TODO: Handle the error.
-                DLog.i(TAG, "An error occurred: $status")
-            }
-        })
     }
 
     override fun onMapReady(p0: GoogleMap?) {
