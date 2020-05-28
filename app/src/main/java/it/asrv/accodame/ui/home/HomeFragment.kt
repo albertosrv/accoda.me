@@ -6,20 +6,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CursorAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import it.asrv.accodame.R
 import it.asrv.accodame.ui.home.map.MapFragment
+import it.asrv.accodame.utils.DLog
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class HomeFragment : Fragment() {
 
+    companion object {
+        val TAG = HomeFragment.javaClass.name
+    }
+
     private lateinit var homeViewModel: HomeViewModel
-    private var cityAdapter: CursorAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,6 +50,37 @@ class HomeFragment : Fragment() {
         vHomePlaceSearch.isIconifiedByDefault = false
         vHomePlaceSearch.isSubmitButtonEnabled = true
         vHomePlaceSearch.isQueryRefinementEnabled = true
+        vHomePlaceSearch.setOnQueryTextListener(object :
+            android.widget.SearchView.OnQueryTextListener {
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+
+                return false
+            }
+
+        })
+
+        vHomePlaceSearch.setOnSuggestionListener(object: android.widget.SearchView.OnSuggestionListener
+        {
+            override fun onSuggestionClick(position: Int): Boolean {
+                DLog.i(TAG, "onSuggestionClick($position)")
+                val cursorAdapter = vHomePlaceSearch.suggestionsAdapter
+                val cursor = cursorAdapter.cursor
+                cursor.moveToPosition(position)
+                val query = cursor.getString(cursor.getColumnIndex(SearchManager.SUGGEST_COLUMN_TEXT_1))
+                vHomePlaceSearch.setQuery(query, false)
+                return false
+            }
+
+            override fun onSuggestionSelect(position: Int): Boolean {
+                DLog.i(TAG, "onSuggestionSelect($position)")
+                return false
+            }
+        })
 
         vHomePager.adapter = HomePagerAdapter(this)
         //Disable swipe
@@ -62,14 +96,12 @@ class HomeFragment : Fragment() {
         }.attach()
     }
 
-
-
     class HomePagerAdapter(fm: Fragment) : FragmentStateAdapter(fm) {
 
         override fun getItemCount(): Int = 2
 
         override fun createFragment(position: Int): Fragment {
-            var fragment : Fragment = Fragment()
+            var fragment = Fragment()
             when(position) {
                 0 -> fragment = MapFragment()
             }

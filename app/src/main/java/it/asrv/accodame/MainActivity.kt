@@ -9,6 +9,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import it.asrv.accodame.Constants.Companion.ACTION_SEARCH
+import it.asrv.accodame.Constants.Companion.EXTRA_SEARCH_QUERY
 import it.asrv.accodame.utils.DLog
 
 class MainActivity : AppCompatActivity() {
@@ -18,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        DLog.i(TAG, "onNewIntent")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
@@ -37,7 +40,9 @@ class MainActivity : AppCompatActivity() {
         // Verify the action and get the query
         if (Intent.ACTION_SEARCH == intent?.action) {
             intent.getStringExtra(SearchManager.QUERY)?.also { query ->
-
+                val broadcastIntent = Intent(ACTION_SEARCH)
+                broadcastIntent.putExtra(EXTRA_SEARCH_QUERY, query)
+                sendBroadcast(broadcastIntent)
             }
         }
     }

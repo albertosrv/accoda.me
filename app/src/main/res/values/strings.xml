@@ -12,6 +12,9 @@
     <string name="search_hint">Cerca un locale</string>
     <string name="home_tab_map">Mappa</string>
     <string name="home_tab_list">Lista</string>
+    <string name="alert_error_title">Attenzione</string>
+    <string name="alert_btn_ok">Ok</string>
+    <string name="alert_location_not_found">Nessuna corrispondenza trovata tra le città in cui il servizio è disponibile. Prova a cercare un\'altra città</string>
     <string name="alert_location_title">Gentile utente,</string>
     <string name="alert_location_message">Se non si concedono i permessi alla geolocalizzazione o non si inserisce una città non è possibile effettuare la visualizzazione dei locali</string>
     <string name="alert_location_btn_select_city">Inserisci città</string>

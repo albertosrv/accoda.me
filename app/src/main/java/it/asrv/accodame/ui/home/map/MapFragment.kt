@@ -1,8 +1,7 @@
 package it.asrv.accodame.ui.home.map
 
 import android.Manifest
-import android.content.DialogInterface
-import android.content.Intent
+import android.content.*
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
@@ -11,10 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import it.asrv.accodame.MainActivity.Companion.TAG
+import it.asrv.accodame.Configuration
+import it.asrv.accodame.Constants
 import it.asrv.accodame.R
 import it.asrv.accodame.ui.BaseFragment
 import it.asrv.accodame.utils.DLog
@@ -22,10 +23,32 @@ import it.asrv.accodame.utils.DLog
 
 class MapFragment : BaseFragment(), OnMapReadyCallback {
 
+    companion object {
+        val TAG = MapFragment.javaClass.name
+    }
+
     private val REQ_CODE_LOCATION: Int = 123
     private val REQ_CODE_PERMISSION: Int = 456
 
     var mMap : GoogleMap? = null
+
+    var receiverSearch: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val query = intent.extras?.getString(Constants.EXTRA_SEARCH_QUERY)
+            val latLng = Configuration.CITIES_LATLNG.get(query)
+            if(latLng != null)
+                mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, Configuration.MAP_ZOOM_DEFAULT))
+            else
+                showMessage(
+                    getString(R.string.alert_error_title),
+                    getString(R.string.alert_location_not_found),
+                    getString(R.string.alert_btn_ok),
+                null,
+                    null,
+                    null
+                )
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,9 +60,23 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        DLog.i(TAG, "onViewCreated()")
         super.onViewCreated(view, savedInstanceState)
         val supportMapFragment = childFragmentManager.findFragmentById(R.id.fMap)
         (supportMapFragment as SupportMapFragment).getMapAsync(this)
+    }
+
+    override fun onStart() {
+        DLog.i(TAG, "onStart()")
+        super.onStart()
+        val filter = IntentFilter(Constants.ACTION_SEARCH)
+        activity?.registerReceiver(receiverSearch, filter)
+    }
+
+    override fun onStop() {
+        DLog.i(TAG, "onPause()")
+        super.onStop()
+        activity?.unregisterReceiver(receiverSearch)
     }
 
     override fun onMapReady(p0: GoogleMap?) {
