@@ -1,9 +1,12 @@
 package it.asrv.accodame.ui.home
 
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CursorAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -12,9 +15,11 @@ import it.asrv.accodame.R
 import it.asrv.accodame.ui.home.map.MapFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 
+
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
+    private var cityAdapter: CursorAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +42,12 @@ class HomeFragment : Fragment() {
         vHomeSearch.isSubmitButtonEnabled = true
         vHomeSearch.isQueryRefinementEnabled = true*/
 
+        val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        vHomePlaceSearch.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
+        vHomePlaceSearch.isIconifiedByDefault = false
+        vHomePlaceSearch.isSubmitButtonEnabled = true
+        vHomePlaceSearch.isQueryRefinementEnabled = true
+
         vHomePager.adapter = HomePagerAdapter(this)
         //Disable swipe
         vHomePager.isUserInputEnabled = false
@@ -50,6 +61,8 @@ class HomeFragment : Fragment() {
             tab.text = title
         }.attach()
     }
+
+
 
     class HomePagerAdapter(fm: Fragment) : FragmentStateAdapter(fm) {
 

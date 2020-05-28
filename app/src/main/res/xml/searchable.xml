@@ -4,5 +4,6 @@
     android:hint="@string/search_hint"
     android:voiceSearchMode="showVoiceSearchButton|launchRecognizer"
     android:searchSuggestAuthority="it.asrv.accodame.search.SearchSuggestionProvider"
-    android:searchSuggestSelection=" ?" >
+    android:searchSuggestSelection=" ?"
+    android:searchSuggestIntentAction="android.intent.action.SEARCH">
 </searchable>

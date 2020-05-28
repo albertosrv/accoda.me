@@ -12,14 +12,22 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"/>-->
 
+    <SearchView
+        android:id="@+id/vHomePlaceSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:searchIcon="@drawable/ic_location_on_black_24dp"
+        android:queryHint="@string/map_search_hint"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vHomePager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/vHomePagerTabs"/>
+        app:layout_constraintTop_toBottomOf="@id/vHomePlaceSearch"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/vHomePagerTabs"

@@ -3,14 +3,12 @@ package it.asrv.accodame
 import android.app.SearchManager
 import android.content.Intent
 import android.os.Bundle
-import android.provider.SearchRecentSuggestions
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import it.asrv.accodame.search.SearchSuggestionProvider
 import it.asrv.accodame.utils.DLog
 
 class MainActivity : AppCompatActivity() {
@@ -39,11 +37,7 @@ class MainActivity : AppCompatActivity() {
         // Verify the action and get the query
         if (Intent.ACTION_SEARCH == intent?.action) {
             intent.getStringExtra(SearchManager.QUERY)?.also { query ->
-                //TODO save tags as query suggestions
-                SearchRecentSuggestions(this, SearchSuggestionProvider.AUTHORITY, SearchSuggestionProvider.MODE)
-                    .saveRecentQuery(query, null)
 
-                //TODO handle search
             }
         }
     }
