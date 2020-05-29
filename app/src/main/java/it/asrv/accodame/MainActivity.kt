@@ -16,7 +16,7 @@ import it.asrv.accodame.utils.DLog
 class MainActivity : AppCompatActivity() {
 
     companion object {
-        val TAG = MainActivity.javaClass.name
+        val TAG = MainActivity::class.java.name
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
