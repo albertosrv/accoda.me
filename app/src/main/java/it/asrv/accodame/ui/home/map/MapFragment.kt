@@ -24,6 +24,7 @@ import it.asrv.accodame.Configuration
 import it.asrv.accodame.Constants
 import it.asrv.accodame.R
 import it.asrv.accodame.ui.BaseFragment
+import it.asrv.accodame.ui.home.HomeFragment
 import it.asrv.accodame.utils.DLog
 
 
@@ -247,7 +248,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             }
         }
         val negativeListener = DialogInterface.OnClickListener{ dialog, id ->
-            //TODO
+            (parentFragment as? HomeFragment)?.doFocusOnPlaceSearch()
         }
         showMessage(
             getString(R.string.alert_location_title),

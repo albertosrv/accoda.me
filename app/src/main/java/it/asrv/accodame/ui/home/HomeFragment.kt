@@ -96,6 +96,10 @@ class HomeFragment : Fragment() {
         }.attach()
     }
 
+    public fun doFocusOnPlaceSearch() {
+        vHomePlaceSearch.requestFocus()
+    }
+
     class HomePagerAdapter(fm: Fragment) : FragmentStateAdapter(fm) {
 
         override fun getItemCount(): Int = 2
